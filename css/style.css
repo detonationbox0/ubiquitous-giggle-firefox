@@ -1,0 +1,49 @@
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Festive&family=Just+Another+Hand&family=Lobster&family=Redressed&family=Roboto&display=swap');
+
+body {
+    font-family:Arial, Helvetica, sans-serif
+}
+
+.label {
+    margin:5px;
+}
+
+select {
+    margin:5px;
+    height:30px;
+    width:180px;
+}
+
+#tshirt-container {
+    display:flex;
+}
+  
+#tshirt {
+    background-color:forestgreen;
+    min-width:535px;
+}
+  
+#canvas {
+    position:absolute;
+    left:120px;
+    top:90px;
+}
+
+.button {
+    width:180px;
+    margin:5px;
+    height:30px;
+}
+
+#fonts {
+    display:none;
+}
+
+svg {
+    width:100%;
+}
+  
+  
+  
