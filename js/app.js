@@ -495,8 +495,8 @@ $("#add").on("click", function() {
     // lavrton's response:
     // Yes. In that case you can make a bigger canvas upfront, or update it on resize end
 
-    canvg(canvas, '/nimoy.svg', { // <--- When debugging locally
-    // canvg(canvas, '/ubiquitous-giggle-firefox/nimoy.svg', { // <--- When hosted on github
+    // canvg(canvas, '/nimoy.svg', { // <--- When debugging locally
+    canvg(canvas, '/ubiquitous-giggle-firefox/nimoy.svg', { // <--- When hosted on github
       renderCallback: function () {
 
         var image = new Konva.Image({
