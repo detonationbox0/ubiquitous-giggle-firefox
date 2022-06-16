@@ -495,8 +495,8 @@ $("#add").on("click", function() {
     // lavrton's response:
     // Yes. In that case you can make a bigger canvas upfront, or update it on resize end
 
-    // canvg(canvas, '/nimoy.svg', { // <--- When debugging locally
-    canvg(canvas, '/ubiquitous-giggle-firefox/nimoy.svg', { // <--- When hosted on github
+    canvg(canvas, '/nimoy.svg', { // <--- When debugging locally
+    // canvg(canvas, '/ubiquitous-giggle-firefox/nimoy.svg', { // <--- When hosted on github
       renderCallback: function () {
 
         var image = new Konva.Image({
@@ -514,6 +514,7 @@ $("#add").on("click", function() {
         layer.add(image);
         image.moveToTop();
         tr.nodes([image]);
+
         layer.draw();
 
         image.on('mouseover', function() {
@@ -537,75 +538,6 @@ $("#add").on("click", function() {
       }
     });
 
-
-    /* 
-
-    // Create Image Node to be added to the layer
-    // Konva.Image.fromURL('/ubiquitous-giggle/logo-mail-shark.svg', function (imgNode) { // <- This line is for GitHub's relative link
-    Konva.Image.fromURL('/Marcos.svg', function (imgNode) { // <- This line is for debugging locally
-    // Konva.Image.fromURL('/logo-mail-shark.svg', function (imgNode) { // <- This line is for debugging locally
-    // Konva.Image.fromURL('https://images.getbento.com/accounts/63e50d3a0270f2fe2c25af59b44fc235/media/images/logo-hero-white.png', function (imgNode) {
-       // ↑ This line uses a raster logo
-    
-        // $("body").attr("new-attr", "new-val")
-        // $(imgNode).attr("width", stage.width() +"px")
-    //    $(imgNode)
-       //.setAttribute("width", stage.width+"px");
-        // console.log(imgNode.getImage());
-    // $(imgNode).attr({
-    //     height: "100%",
-    //     width: "100%"
-    // })
-        // var canvas = document.createElement('canvas');
-
-
-        // * Longstanding Firefox bug disallows SVG without height and width attributes
-        // * Workaround mentioned here https://stackoverflow.com/questions/28690643/firefox-error-rendering-an-svg-image-to-html5-canvas-with-drawimage
-        // * Parse the image as an XML, add width and height manually
-
-        console.log(imgNode.getImage())
-        // var parser = new DOMParser();
-        // var result = parser.parseFromString(imgNode.getImage(), 'text/xml');
-        
-
-        // console.log(result);
-
-        imgNode.setAttrs({
-            x: 0,
-            y: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            draggable: true,
-            name:"selectable"
-        });
-
-        // Add the Image Node to the Layer
-        layer.add(imgNode);
-        imgNode.moveToTop();
-
-        // Add the image to the Transformer
-        tr.nodes([imgNode])
-        
-
-        // Draw the layer
-        layer.draw();
-
-
-        // Attach events to the Image Node
-        
-        imgNode.on('mouseover', function() {
-            document.body.style.cursor = 'pointer';            
-        });
-
-        imgNode.on('mouseout', function() {
-            document.body.style.cursor = 'default';
-        });
-
-        // ... more events available https://konvajs.org/docs/events/Binding_Events.html
-
-    });        */
-
-    //#endregion
 });
 
 
@@ -627,106 +559,7 @@ $("#download").on("click", function() {
     //#endregion
 })
 
-/**
- * -----------------------------------------------------------------------------------
- * User clicks the "Add Text" button
- * -----------------------------------------------------------------------------------
- * */
-
-$("#add-text").on("click", function() {
-    //#region
-    $("#fonts").show();
-
-    var textNode = new Konva.Text({
-        text: 'Double Click to Edit',
-        x: 50,
-        y: 50,
-        fontSize: 25,
-        fontFamily:"Roboto",
-        fill:"white",
-        draggable:true,
-        name:"selectable",
-        id:"text"
-    });
-
-    layer.add(textNode);
-
-    // Adapted from: https://konvajs.org/docs/sandbox/Editable_Text.html
-    textNode.on('dblclick dbltap', () => {
-        // create textarea over canvas with absolute position
-
-        // first we need to find position for textarea
-        // how to find it?
-
-        // at first lets find position of text node relative to the stage:
-        var textPosition = textNode.getAbsolutePosition();
-
-        // then lets find position of stage container on the page:
-        var stageBox = stage.container().getBoundingClientRect();
-
-        // so position of textarea will be the sum of positions above:
-        var areaPosition = {
-          x: stageBox.left + textPosition.x,
-          y: stageBox.top + textPosition.y,
-        };
-
-        // create textarea and style it
-        var textarea = document.createElement('textarea');
-        document.body.appendChild(textarea);
-
-        textarea.value = textNode.text();
-        textarea.style.position = 'absolute';
-        textarea.style.top = areaPosition.y + 'px';
-        textarea.style.left = areaPosition.x + 'px';
-        textarea.style.width = textNode.width();
-
-        textarea.focus();
-
-        textarea.addEventListener('keydown', function (e) {
-          // hide on enter
-          if (e.keyCode === 13) {
-            textNode.text(textarea.value);
-            document.body.removeChild(textarea);
-          }
-        });
-      });
-    //#endregion
-});
-
-/**
- * -----------------------------------------------------------------------------------
- * User chooses a different font
- * -----------------------------------------------------------------------------------
- * */
-
-
-$('#choose-font').on('change', function() {
-
-    //#region
-    var textNodes = stage.find("#text");
-    var toFont = this.value;
-
-    textNodes.forEach(function(textNode) {
-        textNode.fontFamily(toFont);
-    })
-    //#endregion
-
-});
   
-/**
- * -----------------------------------------------------------------------------------
- * User clicks Save
- * -----------------------------------------------------------------------------------
- * Removed from DOM
- * */
-$("#save").on("click", function() {
-    //#region
-    var stageJson = layer.toJson();
-    console.log(stageJson);
-    //#endregion
-});
-
-
 
 
 /**
